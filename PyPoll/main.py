@@ -48,6 +48,15 @@ with open(csvpath) as csvfile:
     # winner = [votes_khan, votes_correy, votes_li, votes_otooley]
     # Electionwinner = max(winner)
     # print(Electionwinner)
+    #winner
+    if votes_correy > votes_khan and votes_correy > votes_li and votes_correy > votes_otooley:
+        winner = "Correy"
+    elif  votes_khan > votes_correy and votes_khan > votes_li and votes_khan > votes_otooley:
+        winner = "Khan"
+    elif votes_li > votes_khan and votes_li > votes_correy and votes_li > votes_otooley:
+        winner = "Li"
+    else:
+        winner = "O'Tooley"
 
 print("Election Results")
 print("--------------------")
@@ -57,6 +66,9 @@ print(f'Khan: {percent_khan}% ({votes_khan})')
 print(f'Correy: {percent_correy}% ({votes_correy})')
 print(f'Li: {percent_li}% ({votes_li})')
 print(f"""O'Tooley: {percent_otooley}% ({votes_otooley})""")
+print("--------------------")
+print(f'Winner: {winner}')
+print("--------------------")
 
 
 
