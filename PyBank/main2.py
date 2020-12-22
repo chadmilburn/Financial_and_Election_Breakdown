@@ -30,10 +30,10 @@ with open(csvpath) as csvfile:
     for i in range(1, len(profit)):
         profit_change.append(int(profit[i])- int(profit[i-1]))
     greatest_increase = max(profit_change)
-    greatest_increase_month = profit_change.index(max(profit_change))+1
-    big_month = month[greatest_increase_month]
+    greatest_increase_month = month[profit_change.index(max(profit_change))+1]
     greatest_decrease = min(profit_change)
-    average_change = sum(profit_change)/len(profit_change)
+    greatest_decrease_month = month[profit_change.index(min(profit_change))+1]
+    average_change = round(sum(profit_change)/len(profit_change),2)
     #check for correct list info
     #print(month)
     #print(profit)
@@ -42,12 +42,12 @@ with open(csvpath) as csvfile:
     #find sum of profits/loss column
         
     
-    
+    print("Financial Analysis")
+    print("-------------------")
     print(f' Total Months:  {total_months}')
     print(f' Total: ${total_profit}')
-    print(profit_change)
-    print(greatest_increase)
-    print(greatest_decrease)
-    print(average_change)
-    print(greatest_increase_month)
-    print(big_month)
+    print(f' Average Change: ${average_change}')
+    print(f' Greatest Increase in Profits: {greatest_increase_month}  (${greatest_increase})')
+    print(f' Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})')
+
+
