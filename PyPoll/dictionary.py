@@ -31,26 +31,25 @@ with open(csvpath) as csvfile:
     # for key in candidate:
     #     print(key)
     # print (candidate_id)
-
+    file = open("Election_Results.txt", "w")
+    file.write("Election Results\n")
+    file.write("----------------\n")
+    file.write(f'Total Votes:  {total_votes}\n')
+    file.write("----------------\n")
     print("Election Results")
     print("----------------")
     print("Total Votes: " + str(total_votes))
     print("----------------")
-    for candidates in candidate:
+    for key in candidate:
         #retrieveing the votes for each candidate
-        votecount = candidate.get(candidates)
+        votecount = candidate.get(key)
         #calculating percent of total vote
         vote_percentage = round(float(votecount) / float(total_votes) *100,3)
-        #print (vote_percentage)
-        #print(candidate[candidates])
-        #for key in candidate_id.keys():
-            
-        totals = f'{candidates} : {vote_percentage}% ({candidate[candidates]})\n'
-        #name = f'{candidates}'
+        totals = f'{key} : {vote_percentage}% ({candidate[key]})\n'
+        #check for percentages
         #totals = f' {vote_percentage}%\n'
-        #print(name)
         print(totals)
-
+        file.write(f'{totals}\n')
     
     winner = max(candidate, key=candidate.get)
     print("----------------")
@@ -61,32 +60,8 @@ with open(csvpath) as csvfile:
     print("----------------")
     print("Total Votes: " + str(total_votes))
     print("----------------")
-   
-   
-   
-    file = open("Election_Results.txt", "w")
-    file.write("Election Results\n")
-    file.write("----------------\n")
-    file.write(f'Total Votes:  {total_votes}\n')
-    file.write("----------------\n")
-    for candidates in candidate:
-        #retrieveing the votes for each candidate
-        votecount = candidate.get(candidates)
-        #calculating percent of total vote
-        vote_percentage = round(float(votecount) / float(total_votes) *100,3)
-        #print (vote_percentage)
-        #print(candidate[candidates])
-        #for key in candidate_id.keys():
-            
-        totals = f'{candidates} : {vote_percentage}% ({candidate[candidates]})\n'
-        #name = f'{candidates}'
-        #totals = f' {vote_percentage}%\n'
-        #print(name)
-        file.write(f'{totals}\n')
-        
-    
-    winner = max(candidate, key=candidate.get)
     file.write("----------------\n")
     file.write(f'Winner: {winner}\n')
     file.write("----------------")
     file.close()
+
