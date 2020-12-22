@@ -16,11 +16,9 @@ with open(csvpath) as csvfile:
     #print(csv_header)
     candidate_id = []
     candidate = {}
-    voter_id = []
     total_votes = 0
     for rows in csvreader:
-     #   voter_id.append(rows[0])
-     #   total_votes = len(voter_id)
+
         total_votes = total_votes + 1      
         name = rows[2]
         if name not in candidate_id:
@@ -28,11 +26,26 @@ with open(csvpath) as csvfile:
             candidate[name] = 0
         candidate[name] = candidate[name] + 1
 
-#print(candidate)
-#print(total_votes) 
-
+    print("Election Results")
+    print("----------------")
+    print("Total Votes: " + str(total_votes))
+    print("----------------")
+    candidate = tuple.get(candidate)
     for candidates in candidate:
         votecount = candidate.get(candidates)
         vote_percentage = round(float(votecount) / float(total_votes) *100,3)
         #print (vote_percentage)
-        print f”{candidate}: {vote_percentage}% {candidate}\n”
+        #print(candidate[candidates])
+        #names = tuple(candidate_id)
+        totals = f'{candidate[0]} : {vote_percentage}% ({candidate[candidates]})\n'
+        #name = f'{candidate[candidate]}'
+        #totals = f' {vote_percentage}%\n'
+
+        print(totals)
+
+    
+    winner = max(candidate, key=candidate.get)
+    print("----------------")
+    print("Winner:" + str(winner))
+    print("----------------")
+print(candidate)
