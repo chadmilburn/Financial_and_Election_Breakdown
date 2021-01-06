@@ -1,5 +1,7 @@
-import  os
+import os
 import csv
+
+
 
 #set path to data
 csvpath = os.path.join("Resources", "election_data.csv")
@@ -12,81 +14,54 @@ with open(csvpath) as csvfile:
 
     csv_header = next(csvreader)
     #print(csv_header)
-
-    #Create lists to calculate results
-    voter_id =[]
-    khan = []
-    correy = []
-    li = []
-    otooley = []
-    # fill created lists with each variable to be counted
+    candidate_id = []
+    candidate = {}
+    total_votes = 0
     for rows in csvreader:
-        voter_id.append(rows[0])
-        total_votes = len(voter_id)
-        if "Khan" == rows[2]:
-            khan.append(rows[2])
-        elif "Correy" == rows[2]:
-            correy.append(rows[2])
-        elif "Li" == rows[2]:
-            li.append(rows[2])
-        else:
-            otooley.append(rows[2])
-    # len to count total and candidate votes
-    total_votes= len(voter_id)
-    votes_khan = len(khan)
-    votes_correy = len(correy)
-    votes_li = len(li)
-    votes_otooley = len(otooley)
+        #as we move through the rows of csv we are totaling votes with this counter
+        total_votes = total_votes + 1      
+        name = rows[2]
+        # with ths we creating a list of unique candidate names and dict for votes for each candidate
+        if name not in candidate_id:
+            #creates the list of candidates to use for dictionary key
+            candidate_id.append(name)
+            #to see how the list is created
+            #print(candidate_id)
+            #we are totaling the votes for each unique name and storing them with candidate_id as the key in a dictionary
+            candidate[name] = 0
+        candidate[name] = candidate[name] + 1
+        #look to see how the loop is working
+        #print(candidate)
+    # for key in candidate:
+    #     print(key)
+    # print (candidate_id)
+    file = open("Election_Results.txt", "w")
+    file.write("Election Results")
+    file.write("----------------")
+    file.write(f'Total Votes:  {total_votes}')
+    file.write("----------------")
+    print("Election Results")
+    print("----------------")
+    print("Total Votes: " + str(total_votes))
+    print("----------------")
+    for key in candidate:
+        #retrieveing the votes for each candidate
+        votecount = candidate.get(key)
+        #calculating percent of total vote
+        vote_percentage = round(float(votecount) / float(total_votes) *100,3)
+        totals = f'{key} : {vote_percentage}% ({candidate[key]})\n'
+        #check for percentages
+        #totals = f' {vote_percentage}%\n'
+        print(totals)
+        file.write(f'{totals}\n')
     
-    #use counts to calcuate percentages
-    percent_khan = round((votes_khan / total_votes)*100,4)
-    percent_correy = round((votes_correy/total_votes)*100,4)
-    percent_li = round((votes_li/total_votes)*100,4)
-    percent_otooley = round((votes_otooley/total_votes)*100,4)   
+    winner = max(candidate, key=candidate.get)
+    print("----------------")
+    print("Winner:" + str(winner))
+    print("----------------")
 
-    #winner
-    # winner = [votes_khan, votes_correy, votes_li, votes_otooley]
-    # Electionwinner = max(winner)
-    # print(Electionwinner)
-    #winner
-    if votes_correy > votes_khan and votes_correy > votes_li and votes_correy > votes_otooley:
-        winner = "Correy"
-    elif  votes_khan > votes_correy and votes_khan > votes_li and votes_khan > votes_otooley:
-        winner = "Khan"
-    elif votes_li > votes_khan and votes_li > votes_correy and votes_li > votes_otooley:
-        winner = "Li"
-    else:
-        winner = "O'Tooley"
-
-print("Election Results")
-print("--------------------")
-print(f'Total Votes: {total_votes}')
-print("--------------------")
-print(f'Khan: {percent_khan}% ({votes_khan})')
-print(f'Correy: {percent_correy}% ({votes_correy})')
-print(f'Li: {percent_li}% ({votes_li})')
-print(f"""O'Tooley: {percent_otooley}% ({votes_otooley})""")
-print("--------------------")
-print(f'Winner: {winner}')
-print("--------------------")
-
-
-
-
-# print(total_votes)
-# print(votes_khan)
-# print(percent_khan)
-# print(votes_correy)
-# print(percent_correy)
-# print(votes_li)
-# print(percent_li)
-# print(votes_otooley)
-# print(percent_otooley)
-
-
-
-
-
-
-
+    file.write("----------------\n")
+    file.write(f'Winner: {winner}\n')
+    file.write("----------------")
+    file.close()
 
