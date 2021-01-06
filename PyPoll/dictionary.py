@@ -21,21 +21,25 @@ with open(csvpath) as csvfile:
         #as we move through the rows of csv we are totaling votes with this counter
         total_votes = total_votes + 1      
         name = rows[2]
-        # with ths we creating a list of unique candidate names
+        # with ths we creating a list of unique candidate names and dict for votes for each candidate
         if name not in candidate_id:
+            #creates the list of candidates to use for dictionary key
             candidate_id.append(name)
+            #to see how the list is created
+            #print(candidate_id)
             #we are totaling the votes for each unique name and storing them with candidate_id as the key in a dictionary
             candidate[name] = 0
         candidate[name] = candidate[name] + 1
-
+        #look to see how the loop is working
+        #print(candidate)
     # for key in candidate:
     #     print(key)
     # print (candidate_id)
     file = open("Election_Results.txt", "w")
-    file.write("Election Results\n")
-    file.write("----------------\n")
-    file.write(f'Total Votes:  {total_votes}\n')
-    file.write("----------------\n")
+    file.write("Election Results")
+    file.write("----------------")
+    file.write(f'Total Votes:  {total_votes}')
+    file.write("----------------")
     print("Election Results")
     print("----------------")
     print("Total Votes: " + str(total_votes))
@@ -56,10 +60,6 @@ with open(csvpath) as csvfile:
     print("Winner:" + str(winner))
     print("----------------")
 
-    print("Election Results")
-    print("----------------")
-    print("Total Votes: " + str(total_votes))
-    print("----------------")
     file.write("----------------\n")
     file.write(f'Winner: {winner}\n')
     file.write("----------------")
