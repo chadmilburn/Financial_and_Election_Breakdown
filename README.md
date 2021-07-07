@@ -17,7 +17,26 @@
   * The greatest increase in profits (date and amount) over the entire period
 
   * The greatest decrease in losses (date and amount) over the entire period
-
+```
+        rev_change =[]
+        for x in range(1, len(profit)):
+            rev_change.append(int(profit[x]) - int(profit[x-1]))
+            #print(rev_change)
+            great_increase = max(rev_change)
+            great_decline = min(rev_change)
+            ave_change = round((sum(rev_change)/len(rev_change)),2)
+            #checks for the above lines
+            #print(great_increase)
+            #print(great_decline)
+            #print(ave_change)
+            #print(months[rev_change.index(max(rev_change))+1])
+            #print(months[rev_change.index(min(rev_change))+1])
+            #finds the row of the max value and searches the months list to return the month
+            month_increase = (months[rev_change.index(max(rev_change))+1])
+            #print(month_increase)
+             #finds the row of the min value and searches the months list to return the month
+            month_decrease = (months[rev_change.index(min(rev_change))+1])
+```
 
 
 ## PyPoll
@@ -37,5 +56,25 @@
   * The total number of votes each candidate won
 
   * The winner of the election based on popular vote.
+```
+    csv_header = next(csvreader)
+    #print(csv_header)
+    candidate_id = []
+    candidate = {}
+    total_votes = 0
+    for rows in csvreader:
+        #as we move through the rows of csv we are totaling votes with this counter
+        total_votes = total_votes + 1      
+        name = rows[2]
+        # with ths we creating a list of unique candidate names and dict for votes for each candidate
+        if name not in candidate_id:
+            #creates the list of candidates to use for dictionary key
+            candidate_id.append(name)
+            #to see how the list is created
+            #print(candidate_id)
+            #we are totaling the votes for each unique name and storing them with candidate_id as the key in a dictionary
+            candidate[name] = 0
+        candidate[name] = candidate[name] + 1
+```        
 
 
